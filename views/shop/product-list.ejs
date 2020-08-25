@@ -1,0 +1,93 @@
+<%- include('../includes/head.ejs') %>
+
+    <link rel="stylesheet" href="/css/product.css">
+    
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+               
+                
+                    <div class="slider">
+                        <img id="image" src="/img/poster/kabali.jpg" alt="">
+                        <button id="image-next"><span><i class="material-icons" >chevron_right</i></span></button>
+                        <button id="image-prev"><span><i class="material-icons">chevron_left</i></span></button>
+                    </div>
+                    <br>
+                    <div class="topic">
+                        <span>Movies</span>
+                        <a href="/movies" class="link">See All</a>
+                    </div>
+                    
+
+
+                <% if (prods.length > 0) { %>
+                    <div class="grid" id="cover">
+                        <% for (let product of prods) { %>
+                            <% if(product.type=="movies") { %>
+                                <a href="/movie/<%= product._id %>">
+                                    <article class="card product-item">
+                                        <div class="card__image">
+                                            <img src="/img/<%= product.imageUrl %>.jpg" width="250px" height="250px" alt="<%= product.title %>">
+                                        </div>
+                                    </article>
+                                </a>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                        <% } %>
+                        <div class="topic">
+                            <span>Web Series</span>
+                            <a href="/web-series" class="link">See All</a>
+                        </div>
+                        
+    
+    
+                    <% if (prods.length > 0) { %>
+                        <div class="grid" id="cover">
+                            <% for (let product of prods) { %>
+                                <% if(product.type=="web-series") { %>
+                                    <a href="/movie/<%= product._id %>">
+                                        <article class="card product-item">
+                                            <div class="card__image">
+                                                <img src="/img/<%= product.imageUrl %>.jpg" width="250px" height="250px" alt="<%= product.title %>">
+                                            </div>
+                                        </article>
+                                    </a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                        <% } else { %>
+                            <h1>No Products Found!</h1>
+                            <% } %>
+                            <div class="topic">
+                                <span>TV Serials</span>
+                                <a href="/tv-serials" class="link">See All</a>
+                            </div>
+                            
+        
+        
+                        <% if (prods.length > 0) { %>
+                            <div class="grid" id="cover">
+                                <% for (let product of prods) { %>
+                                    <% if(product.type=="tv-serial") { %>
+                                        <a href="/movie/<%= product._id %>">
+                                            <article class="card product-item">
+                                                <div class="card__image">
+                                                    <img src="/img/<%= product.imageUrl %>.jpg" width="250px" height="250px" alt="<%= product.title %>">
+                                                </div>
+                                            </article>
+                                        </a>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                            <% } else { %>
+                                <h1>No Products Found!</h1>
+                                <% } %>
+            </main>
+         
+            <%- include('../includes/end.ejs') %>
