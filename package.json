@@ -1,7 +1,7 @@
 {
   "name": "movie",
   "version": "1.0.0",
-  "description": "watch,edit,delete the ,movie",
+  "description": "watch,edit,delete,add the movie",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
