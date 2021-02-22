@@ -1,4 +1,6 @@
 const Product = require('../models/product');
+const { Model } = require('mongoose');
+const { model } = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -65,13 +67,32 @@ exports.getMovie=(req,res,next)=>{
 
   Product.findById(prodId)
   .then(product=>{
+    var spawn = require('child_process').spawn;
+    console.log('hello console');
+    var process = spawn('python', ['./data/rec1.py',product.title]);
+    process.stdout.on('data', function(data) { 
+      // console.log('hello');
+      data.toString();
     res.render('shop/movie',{
       product: product,
+      data:data,
       pageTitle: product.title,
       path: '/',
-    });
+    })
+
+      // res.send(data.toString()); 
+  } ) 
   })
   .catch(err => console.log(err));
+  // Product.findById(prodId)
+  // .then(product=>{
+  //   res.render('shop/movie',{
+  //     product: product,
+  //     pageTitle: product.title,
+  //     path: '/',
+  //   });
+  // })
+  // .catch(err => console.log(err));
 }
 exports.postReview=(req,res,next)=>{
   const prodId=req.params.movieId;
@@ -94,7 +115,19 @@ exports.postReview=(req,res,next)=>{
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   Product.findById(prodId)
+    .then(product=>{
+      var spawn = require('child_process').spawn;
+      console.log('hello console');
+      var process = spawn('python', ['./rec.py',product.title]);
+      process.stdout.on('data', function(data) { 
+        console.log(data.toString());
+        // res.send(data.toString()); 
+    } ) 
+    })
+    .catch(err => console.log(err));
+  Product.findById(prodId)
     .then(product => {
+      console.log('hello console1');
       res.render('shop/product-detail', {
         product: product,
         pageTitle: product.title,
