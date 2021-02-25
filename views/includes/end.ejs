@@ -1,0 +1,41 @@
+<div class="modal" id="signup-modal">
+    <div class="modal-element">
+        <h2 class="modal-cross" id="signup-cross">+</h2>
+        <h1>Sign Up</h1>
+        <form action="/signup" method="POST">
+            <!-- <input type="text" name="name" id="names" placeholder="Enter Name"required> -->
+            <input type="email" name="email" id="emails" placeholder="Enter Email"required><br>
+            <!-- <input type="tel" pattern="[0-9]{6}"placeholder="Enter OTP" required/> -->
+            <!-- <button id="generate-otp" style="width: 10%;  color:brown;background-color: chartreuse;">OTP</button> -->
+            <input type="password" name="password" id="set-password" minlength="8" placeholder="Set Password"required/><br>
+            <input type="password" name="confirmPassword" id="set-passwords" minlength="8" placeholder="Confirmed Password"required/><br>
+            <input type="submit" id="submit1" class="submit" style="background-color: blueviolet;color: white;" value="Signup">
+        </form>
+        <p>Already a member <span style="text-decoration: underline; color:#e91787; cursor: pointer;" id="link-login">LogIn</span></p>
+        <!-- <br><button id="fackbook">SignUp Facebook</button>
+        <button id="google">SignUp with Google</button> -->
+    </div>
+    
+
+</div>
+<div class="modal" id="login-modal">
+    <div class="modal-element">
+        
+        <h2 class="modal-cross" id="login-cross">+</h2>
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <input type="email" name="email" id="email" placeholder="Enter Email"required><br>
+            <input type="password" name="password" id="password" placeholder="Enter Password" required><br>
+            <input type="submit" id="submit"  class="submit" style="background-color: blueviolet;color: white;"value="Login">
+        </form>
+        <!-- <button id="fackbook">Login with Facebook</button>
+        <button id="google">Login with Google</button> -->
+    </div>
+    
+
+</div>
+<script src="/js/main.js"></script>
+<script src="/js/modal.js"></script>
+</body>
+
+</html>

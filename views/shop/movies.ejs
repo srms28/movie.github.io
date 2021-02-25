@@ -1,0 +1,46 @@
+<%- include('../includes/head.ejs') %>
+
+    <link rel="stylesheet" href="/css/product.css">
+    
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+               
+                
+                    <div class="slider">
+                     
+                        <img id="image" src="/img/poster/kabali.jpg" alt="">
+                        <button id="image-next"><span><i class="material-icons" >chevron_right</i></span></button>
+                        <button id="image-prev"><span><i class="material-icons">chevron_left</i></span></button>
+                    </div>
+                    <br>
+                    
+
+
+
+
+                    
+                    <% if (prods.length > 0) { %>
+                        <div class="grid" id="cover">
+                            <% for (let product of prods) { %>
+                                <% if(product.type=="movies") { %>
+                                    <a href="/movie/<%= product._id %>">
+                                        <article class="card product-item">
+                                            <div class="card__image">
+                                                <img src="/img/<%= product.imageUrl %>.jpg" width="250px" height="250px" alt="<%= product.title %>">
+                                            </div>
+                                        </article>
+                                    </a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                        <% } else { %>
+                            <h1>No Products Found!</h1>
+                            <% } %>
+
+                    </main>
+         
+                    <%- include('../includes/end.ejs') %>

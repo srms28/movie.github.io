@@ -1,0 +1,55 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main class="centered">
+            
+            <div class="video">
+               
+                <video width="inherit" height="240" controls autoplay>
+                    <source src="/video/<%= product.videoUrl %>.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+                <div class="review">
+                    <form action="/review/<%= product._id %>" method="POST">
+                        
+                            <input type="hidden" name="review" value="1">
+                           <button type="submit"><span class="fa fa-star"  id="star1"></span></button> 
+
+                       
+                    </form>
+
+                    <form action="/review/<%= product._id %>" method="POST">
+                      
+                            <input type="hidden" name="review" value="2">
+                           <button type="submit"><span class="fa fa-star"  id="star1"></span></button> 
+
+                       
+                    </form>
+                     <form action="/review/<%= product._id %>" method="POST">
+                            <input type="hidden" name="review" value="3">
+                           <button type="submit"><span class="fa fa-star"  id="star1"></span></button> 
+
+                    </form>
+                    <form action="/review/<%= product._id %>" method="POST">
+                            <input type="hidden" name="review" value="4">
+                           <button type="submit"><span class="fa fa-star"  id="star1"></span></button> 
+
+                    </form>
+                    <form action="/review/<%= product._id %>" method="POST">
+                            <input type="hidden" name="review" value="5">
+                           <button type="submit"><span class="fa fa-star"  id="star1"></span></button> 
+                    </form>
+                </div>
+            </form>
+            <% if(product.review!=null && product.review!=undefined) { %>
+                <p><span style="color: #e91787;"> review </span>: <%= product.review %></p>
+                <% } %>
+                <p><span style="color: #e91787;">Category</span> : <%= product.type %></p>
+            <p><%= product.description %></p>
+            <p><%=data%></p>
+        </main>
+        
+        <%- include('../includes/end.ejs') %>
