@@ -3,7 +3,7 @@ const { Model } = require('mongoose');
 const { model } = require('../models/product');
 const fs = require('fs');
 
-let documents = JSON.parse(fs.readFileSync('./data/input.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
 const ContentBasedRecommender = require('content-based-recommender')
 const recommender = new ContentBasedRecommender({
   minScore: 0.1,
