@@ -1,6 +1,14 @@
 const Product = require('../models/product');
 const { Model } = require('mongoose');
 const { model } = require('../models/product');
+const fs = require('fs');
+
+let documents = JSON.parse(fs.readFileSync('./data/input.json','utf8'));
+const ContentBasedRecommender = require('content-based-recommender')
+const recommender = new ContentBasedRecommender({
+  minScore: 0.1,
+  maxSimilarDocuments: 100
+});
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -64,35 +72,29 @@ exports.getTvSerials = (req,res,next)=>{
 exports.getMovie=(req,res,next)=>{
   const prodId=req.params.movieId;
   console.log(prodId);
-
+  console.log(documents);
+  // let s="";
+  recommender.train(documents);
+  // for(let i=0;i<100;i++){
+  //   s=s+' '+ documents[i].toString();
+  // }
+  
+  // console.log(s);
+//get top 10 similar items to document 1000002
+const similarDocuments = recommender.getSimilarDocuments('862', 0, 10);
+console.log(similarDocuments);
+similarDocuments.toString('utf8');
+console.log(similarDocuments);
   Product.findById(prodId)
   .then(product=>{
-    var spawn = require('child_process').spawn;
-    console.log('hello console');
-    var process = spawn('python', ['./data/rec1.py',product.title]);
-    process.stdout.on('data', function(data) { 
-      // console.log('hello');
-      data.toString();
     res.render('shop/movie',{
       product: product,
-      data:data,
       pageTitle: product.title,
+      similarDocuments:documents,
       path: '/',
-    })
-
-      // res.send(data.toString()); 
-  } ) 
+    });
   })
   .catch(err => console.log(err));
-  // Product.findById(prodId)
-  // .then(product=>{
-  //   res.render('shop/movie',{
-  //     product: product,
-  //     pageTitle: product.title,
-  //     path: '/',
-  //   });
-  // })
-  // .catch(err => console.log(err));
 }
 exports.postReview=(req,res,next)=>{
   const prodId=req.params.movieId;
@@ -136,3 +138,28 @@ exports.getProduct = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+
+// Product.findById(prodId)
+// .then(product=>{
+  // var spawn = require('child_process').spawn;
+  // console.log('hello console');
+
+  // var process = spawn('python', ['./data/recommend.py',product.title]);
+  // process.stdout.on('data', function(data) { 
+  //   console.log('hello');
+  //   console.log(data);
+  //   data.toString('utf8');
+  //   console.log(data);
+
+  // res.render('shop/movie',{
+  //   product: product,
+  //   data:data,
+  //   pageTitle: product.title,
+  //   path: '/',
+  // })
+
+    // res.send(data.toString()); 
+// } ) 
+// })
+// .catch(err => console.log(err));
