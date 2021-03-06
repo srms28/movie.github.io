@@ -2,8 +2,14 @@ const Product = require('../models/product');
 const { Model } = require('mongoose');
 const { model } = require('../models/product');
 const fs = require('fs');
+const Vector = require('vector-object');
+var striptags = require('striptags');
+var natural = require('natural');
+var TfIdf = natural.TfIdf;
+var tfidf = new TfIdf();
 
-let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
+
+let documents = JSON.parse(fs.readFileSync('./data/input.json','utf8'));
 const ContentBasedRecommender = require('content-based-recommender');
 const recommender = new ContentBasedRecommender({
   minScore: 0.1,
@@ -83,14 +89,14 @@ exports.getMovie=(req,res,next)=>{
 //get top 10 similar items to document 1000002
 const similarDocuments = recommender.getSimilarDocuments('862', 0, 10);
 console.log(similarDocuments);
-// similarDocuments.toString('utf8');
+similarDocuments.toString('utf8');
 console.log(similarDocuments);
   Product.findById(prodId)
   .then(product=>{
     res.render('shop/movie',{
       product: product,
       pageTitle: product.title,
-//       similarDocuments:documents,
+      // similarDocuments:documents,
       path: '/',
     });
   })
@@ -114,30 +120,30 @@ exports.postReview=(req,res,next)=>{
 }
 
 
-// exports.getProduct = (req, res, next) => {
-//   const prodId = req.params.productId;
-//   Product.findById(prodId)
-//     .then(product=>{
-//       var spawn = require('child_process').spawn;
-//       console.log('hello console');
-//       var process = spawn('python', ['./rec.py',product.title]);
-//       process.stdout.on('data', function(data) { 
-//         console.log(data.toString());
-//         // res.send(data.toString()); 
-//     } ) 
-//     })
-//     .catch(err => console.log(err));
-//   Product.findById(prodId)
-//     .then(product => {
-//       console.log('hello console1');
-//       res.render('shop/product-detail', {
-//         product: product,
-//         pageTitle: product.title,
-//         path: '/products'
-//       });
-//     })
-//     .catch(err => console.log(err));
-// };
+exports.getProduct = (req, res, next) => {
+  const prodId = req.params.productId;
+  Product.findById(prodId)
+    .then(product=>{
+      var spawn = require('child_process').spawn;
+      console.log('hello console');
+      var process = spawn('python', ['./rec.py',product.title]);
+      process.stdout.on('data', function(data) { 
+        console.log(data.toString());
+        // res.send(data.toString()); 
+    } ) 
+    })
+    .catch(err => console.log(err));
+  Product.findById(prodId)
+    .then(product => {
+      console.log('hello console1');
+      res.render('shop/product-detail', {
+        product: product,
+        pageTitle: product.title,
+        path: '/products'
+      });
+    })
+    .catch(err => console.log(err));
+};
 
 
 // Product.findById(prodId)
