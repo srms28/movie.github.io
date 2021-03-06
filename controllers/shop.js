@@ -4,7 +4,7 @@ const { model } = require('../models/product');
 const fs = require('fs');
 const Vector = require('vector-object');
 var striptags = require('striptags');
-var natural = require('natura');
+var natural = require('natural');
 var TfIdf = natural.TfIdf;
 var tfidf = new TfIdf();
 
