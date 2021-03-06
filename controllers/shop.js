@@ -9,7 +9,7 @@ var TfIdf = natural.TfIdf;
 var tfidf = new TfIdf();
 
 
-let documents = JSON.parse(fs.readFileSync('./data/input.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
 const ContentBasedRecommender = require('content-based-recommender');
 const recommender = new ContentBasedRecommender({
   minScore: 0.1,
