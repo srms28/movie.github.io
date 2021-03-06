@@ -4,7 +4,7 @@ const { model } = require('../models/product');
 const fs = require('fs');
 
 let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
-const ContentBasedRecommender = require('content-based-recommender')
+const ContentBasedRecommender = require('content-based-recommender');
 const recommender = new ContentBasedRecommender({
   minScore: 0.1,
   maxSimilarDocuments: 100
@@ -83,7 +83,7 @@ exports.getMovie=(req,res,next)=>{
 //get top 10 similar items to document 1000002
 const similarDocuments = recommender.getSimilarDocuments('862', 0, 10);
 console.log(similarDocuments);
-similarDocuments.toString('utf8');
+// similarDocuments.toString('utf8');
 console.log(similarDocuments);
   Product.findById(prodId)
   .then(product=>{
