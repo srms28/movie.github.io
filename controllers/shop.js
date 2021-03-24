@@ -91,40 +91,40 @@ exports.getMovie=(req,res,next)=>{
 // console.log(similarDocuments);
 // similarDocuments.toString('utf8');
 // console.log(similarDocuments);
-  Product.findById(prodId)
-  .then(product=>{
-    res.render('shop/movie',{
-      product: product,
-      pageTitle: product.title,
-      data:"hello",
-      // similarDocuments:documents,
-      path: '/',
-    });
-  })
-  .catch(err => console.log(err));
-//    Product.findById(prodId)
+//   Product.findById(prodId)
 //   .then(product=>{
-//   var spawn = require('child_process').spawn;
-//   console.log('hello console');
-
-//   var process = spawn('python', ['./recommend.py',product.title]);
-//   process.stdout.on('data', function(data) { 
-//     console.log('hello');
-//     console.log(data);
-//     data.toString('utf8');
-//     console.log(data);
-
-//   res.render('shop/movie',{
-//     product: product,
-//     data:data,
-//     pageTitle: product.title,
-//     path: '/',
+//     res.render('shop/movie',{
+//       product: product,
+//       pageTitle: product.title,
+//       data:"hello",
+//       // similarDocuments:documents,
+//       path: '/',
+//     });
 //   })
+//   .catch(err => console.log(err));
+   Product.findById(prodId)
+  .then(product=>{
+  var spawn = require('child_process').spawn;
+  console.log('hello console');
 
-//     // res.send(data.toString()); 
-// } ) 
-// })
-// .catch(err => console.log(err));
+  var process = spawn('python', ['./recommend.py',product.title]);
+  process.stdout.on('data', function(data) { 
+    console.log('hello');
+    console.log(data);
+    data.toString('utf8');
+    console.log(data);
+
+  res.render('shop/movie',{
+    product: product,
+    data:data,
+    pageTitle: product.title,
+    path: '/',
+  })
+
+    // res.send(data.toString()); 
+} ) 
+})
+.catch(err => console.log(err));
 }
 exports.postReview=(req,res,next)=>{
   const prodId=req.params.movieId;
