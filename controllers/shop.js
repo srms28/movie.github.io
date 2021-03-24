@@ -13,7 +13,7 @@ const recommender = new ContentBasedRecommender({
   minScore: 0.1,
   maxSimilarDocuments: 100
 });
-let documents = JSON.parse(fs.readFileSync('./data/input.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
 // const documents = [
 //   { id: '1000001', content: 'Why studying javascript is fun?' },
 //   { id: '1000002', content: 'The trend for javascript in machine learning' },
