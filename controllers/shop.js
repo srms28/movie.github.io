@@ -2,19 +2,29 @@ const Product = require('../models/product');
 const { Model } = require('mongoose');
 const { model } = require('../models/product');
 const fs = require('fs');
-const Vector = require('vector-object');
-var striptags = require('striptags');
-var natural = require('natural');
-var TfIdf = natural.TfIdf;
-var tfidf = new TfIdf();
+// const Vector = require('vector-object');
+// var striptags = require('striptags');
+// var natural = require('natural');
+// var TfIdf = natural.TfIdf;
+// var tfidf = new TfIdf();
 
-
-let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
 const ContentBasedRecommender = require('content-based-recommender');
 const recommender = new ContentBasedRecommender({
   minScore: 0.1,
   maxSimilarDocuments: 100
 });
+let documents = JSON.parse(fs.readFileSync('./data/input.json','utf8'));
+// const documents = [
+//   { id: '1000001', content: 'Why studying javascript is fun?' },
+//   { id: '1000002', content: 'The trend for javascript in machine learning' },
+//   { id: '1000003', content: 'The most insightful stories about JavaScript' },
+//   { id: '1000004', content: 'Introduction to Machine Learning' },
+//   { id: '1000005', content: 'Machine learning and its application' },
+//   { id: '1000006', content: 'Python vs Javascript, which is better?' },
+//   { id: '1000007', content: 'How Python saved my life?' },
+//   { id: '1000008', content: 'The future of Bitcoin technology' },
+//   { id: '1000009', content: 'Is it possible to use javascript for machine learning?' }
+// ];
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -78,53 +88,53 @@ exports.getTvSerials = (req,res,next)=>{
 exports.getMovie=(req,res,next)=>{
   const prodId=req.params.movieId;
   console.log(prodId);
-//   console.log(documents);
-//   // let s="";
-//   recommender.train(documents);
-//   // for(let i=0;i<100;i++){
-//   //   s=s+' '+ documents[i].toString();
-//   // }
+  console.log(documents);
+  // let s="";
+  recommender.train(documents);
+  // for(let i=0;i<100;i++){
+  //   s=s+' '+ documents[i].toString();
+  // }
   
-//   // console.log(s);
-// //get top 10 similar items to document 1000002
-// const similarDocuments = recommender.getSimilarDocuments('862', 0, 10);
-// console.log(similarDocuments);
+  // console.log(s);
+//get top 10 similar items to document 1000002
+const similarDocuments = recommender.getSimilarDocuments('862', 0, 10);
+console.log(similarDocuments);
 // similarDocuments.toString('utf8');
 // console.log(similarDocuments);
+  Product.findById(prodId)
+  .then(product=>{
+    res.render('shop/movie',{
+      product: product,
+      pageTitle: product.title,
+      data:similarDocuments[1].score,
+      // similarDocuments:documents,
+      path: '/',
+    });
+  })
+  .catch(err => console.log(err));
 //   Product.findById(prodId)
 //   .then(product=>{
-//     res.render('shop/movie',{
-//       product: product,
-//       pageTitle: product.title,
-//       data:"hello",
-//       // similarDocuments:documents,
-//       path: '/',
-//     });
+//   var spawn = require('child_process').spawn;
+//   console.log('hello console');
+
+//   var process = spawn('python', ['./recommend.py',product.title]);
+//   process.stdout.on('data', function(data) { 
+//     console.log('hello');
+//     console.log(data);
+//     data.toString('utf8');
+//     console.log(data);
+
+//   res.render('shop/movie',{
+//     product: product,
+//     data:data,
+//     pageTitle: product.title,
+//     path: '/',
 //   })
-//   .catch(err => console.log(err));
-   Product.findById(prodId)
-  .then(product=>{
-  var spawn = require('child_process').spawn;
-  console.log('hello console');
 
-  var process = spawn('python', ['./recommend.py',product.title]);
-  process.stdout.on('data', function(data) { 
-    console.log('hello');
-    console.log(data);
-    data.toString('utf8');
-    console.log(data);
-
-  res.render('shop/movie',{
-    product: product,
-    data:data,
-    pageTitle: product.title,
-    path: '/',
-  })
-
-    // res.send(data.toString()); 
-} ) 
-})
-.catch(err => console.log(err));
+//     // res.send(data.toString()); 
+// } ) 
+// })
+// .catch(err => console.log(err));
 }
 exports.postReview=(req,res,next)=>{
   const prodId=req.params.movieId;
@@ -144,30 +154,30 @@ exports.postReview=(req,res,next)=>{
 }
 
 
-// exports.getProduct = (req, res, next) => {
-//   const prodId = req.params.productId;
-//   Product.findById(prodId)
-//     .then(product=>{
-//       var spawn = require('child_process').spawn;
-//       console.log('hello console');
-//       var process = spawn('python', ['./rec.py',product.title]);
-//       process.stdout.on('data', function(data) { 
-//         console.log(data.toString());
-//         // res.send(data.toString()); 
-//     } ) 
-//     })
-//     .catch(err => console.log(err));
-//   Product.findById(prodId)
-//     .then(product => {
-//       console.log('hello console1');
-//       res.render('shop/product-detail', {
-//         product: product,
-//         pageTitle: product.title,
-//         path: '/products'
-//       });
-//     })
-//     .catch(err => console.log(err));
-// };
+exports.getProduct = (req, res, next) => {
+  const prodId = req.params.productId;
+  Product.findById(prodId)
+    .then(product=>{
+      var spawn = require('child_process').spawn;
+      console.log('hello console');
+      var process = spawn('python', ['./rec.py',product.title]);
+      process.stdout.on('data', function(data) { 
+        console.log(data.toString());
+        // res.send(data.toString()); 
+    } ) 
+    })
+    .catch(err => console.log(err));
+  Product.findById(prodId)
+    .then(product => {
+      console.log('hello console1');
+      res.render('shop/product-detail', {
+        product: product,
+        pageTitle: product.title,
+        path: '/products'
+      });
+    })
+    .catch(err => console.log(err));
+};
 
 
 // Product.findById(prodId)
