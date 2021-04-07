@@ -4,7 +4,7 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
         <main class="centered">
-            
+            <h2 style="color: #e91787;text-align: left;">Movie Name: <span style="color: white;"><%= product.title %></span></h2>
             <div class="video">
                
                 <video width="inherit" height="240" controls autoplay>
@@ -49,8 +49,18 @@
                 <% } %>
                 <p><span style="color: #e91787;">Category</span> : <%= product.type %></p>
             <p><%= product.description %></p>
-            <p><%= data %></p>
-            
+            <!-- <p><%= data %></p> -->
+            <h2 style="color: #e91787;text-align: left;">Recommendation Movie:</h2>
+            <% if (data.length > 0) { %>
+                
+                    <% for (let product of data) { %>
+                      <p style="text-align: left;"><%= product.title %></p>
+                       -%>
+                    <% } %>
+                
+                <% } else { %>
+                    <h1>No Products Found!</h1>
+                    <% } %>
         </main>
         
         <%- include('../includes/end.ejs') %>
