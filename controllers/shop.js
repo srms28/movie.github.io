@@ -10,10 +10,15 @@ const fs = require('fs');
 
 const ContentBasedRecommender = require('content-based-recommender');
 const recommender = new ContentBasedRecommender({
-  minScore: 0.1,
+  minScore: 0,
   maxSimilarDocuments: 100
 });
-let documents = JSON.parse(fs.readFileSync('./input.json','utf8'));
+// let documents = JSON.parse(fs.readFileSync('./data/input1.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./data/mData1.json','utf8'));
+let movieData = JSON.parse(fs.readFileSync('./data/output.json','utf8'));
+let movie;
+
+
 // const documents = [
 //   { id: '1000001', content: 'Why studying javascript is fun?' },
 //   { id: '1000002', content: 'The trend for javascript in machine learning' },
@@ -91,22 +96,50 @@ exports.getMovie=(req,res,next)=>{
   console.log(documents);
   // let s="";
   recommender.train(documents);
+
+
+    
   // for(let i=0;i<100;i++){
   //   s=s+' '+ documents[i].toString();
   // }
-  
+
+  let recMovie=[]
   // console.log(s);
 //get top 10 similar items to document 1000002
-const similarDocuments = recommender.getSimilarDocuments('862', 0, 10);
-console.log(similarDocuments);
+// const similarDocuments = recommender.getSimilarDocuments(movie, 0, 10);
+// console.log(similarDocuments);
+// for(let i=0;i<similarDocuments.length;i++){
+//   console.log(similarDocuments[i].id);
+//   for(let j=0;j<movieData.length;j++){
+//     if(similarDocuments[i].id==movieData[j].original_title){
+//       recMovie.push(movieData[j]);
+//       break;
+//     }
+//   }
+  
+// }
+// console.log(recMovie);
+// console.log(movie);
 // similarDocuments.toString('utf8');
 // console.log(similarDocuments);
   Product.findById(prodId)
   .then(product=>{
+    const similarDocuments = recommender.getSimilarDocuments(product.title, 0, 10);
+console.log(similarDocuments);
+for(let i=0;i<similarDocuments.length;i++){
+  console.log(similarDocuments[i].id);
+  for(let j=0;j<movieData.length;j++){
+    if(similarDocuments[i].id==movieData[j].original_title){
+      recMovie.push(movieData[j]);
+      break;
+    }
+  }
+  
+}
     res.render('shop/movie',{
       product: product,
       pageTitle: product.title,
-      data:similarDocuments[1].score,
+      data:recMovie,
       // similarDocuments:documents,
       path: '/',
     });
