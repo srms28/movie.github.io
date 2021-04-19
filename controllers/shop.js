@@ -140,7 +140,7 @@ for(let i=0;i<similarDocuments.length;i++){
       product: product,
       pageTitle: product.title,
       data:recMovie,
-      similarDocuments:similarDocuments,
+//       similarDocuments:similarDocuments,
       path: '/',
     });
   })
