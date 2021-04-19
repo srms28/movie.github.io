@@ -49,13 +49,13 @@
                 <% } %>
                 <p><span style="color: #e91787;">Category</span> : <%= product.type %></p>
             <p><%= product.description %></p>
-            <!-- <p><%= data %></p> -->
+            
             <h2 style="color: #e91787;text-align: left;">Recommendation Movie from <%= product.title %>:</h2>
             <% if (data.length > 0) { %>
                 
-                    <% for (let product of data) { %>
-                      <p style="text-align: left;"><%= product.title %></p>
-                       <!-- -%> -->
+                    <% for (let product1 of data) { %>
+                      <p style="text-align: left;"><%= product1.title %></p>
+                       
                     <% } %>
                 
                 <% } else { %>
