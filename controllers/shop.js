@@ -129,7 +129,7 @@ console.log(similarDocuments);
 for(let i=0;i<similarDocuments.length;i++){
   console.log(similarDocuments[i].id);
   for(let j=0;j<movieData.length;j++){
-    if(similarDocuments[i].id==movieData[j].original_title){
+    if(similarDocuments[i].id==movieData[j].title){
       recMovie.push(movieData[j]);
       break;
     }
