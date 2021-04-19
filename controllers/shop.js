@@ -14,8 +14,8 @@ const recommender = new ContentBasedRecommender({
   maxSimilarDocuments: 100
 });
 // let documents = JSON.parse(fs.readFileSync('./data/input1.json','utf8'));
-let documents = JSON.parse(fs.readFileSync('./data/mData1.json','utf8'));
-let movieData = JSON.parse(fs.readFileSync('./data/output.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./a1.json','utf8'));
+let movieData = JSON.parse(fs.readFileSync('./output.json','utf8'));
 let movie;
 
 
@@ -93,7 +93,7 @@ exports.getTvSerials = (req,res,next)=>{
 exports.getMovie=(req,res,next)=>{
   const prodId=req.params.movieId;
   console.log(prodId);
-  console.log(documents);
+  // console.log(documents);
   // let s="";
   recommender.train(documents);
 
