@@ -62,7 +62,7 @@
                     <% } %>
                <% if (similarDocuments.length > 0) { %>
                 
-                    <% for (var i = 0; i < lists.length; i++) {%>
+                    <% for (var i = 0; i < similarDocuments.length; i++) {%>
                       <p style="text-align: left;"><%= similarDocuments[i].id %><%= similarDocuments[i].score %></p>
                     <% } %>
                 
