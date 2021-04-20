@@ -14,7 +14,7 @@ const recommender = new ContentBasedRecommender({
   maxSimilarDocuments: 100
 });
 // let documents = JSON.parse(fs.readFileSync('./data/input1.json','utf8'));
-let documents = JSON.parse(fs.readFileSync('./a1.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./rec1.json','utf8'));
 let movieData = JSON.parse(fs.readFileSync('./output.json','utf8'));
 let movie;
 
@@ -32,6 +32,7 @@ let movie;
 // ];
 
 exports.getProducts = (req, res, next) => {
+  recommender.train(documents);
   Product.find()
     .then(products => {
       console.log(products);
@@ -95,7 +96,7 @@ exports.getMovie=(req,res,next)=>{
   console.log(prodId);
   // console.log(documents);
   // let s="";
-  recommender.train(documents);
+  
 
 
     
