@@ -14,7 +14,7 @@ const recommender = new ContentBasedRecommender({
   maxSimilarDocuments: 100
 });
 // let documents = JSON.parse(fs.readFileSync('./data/input1.json','utf8'));
-let documents = JSON.parse(fs.readFileSync('./rec1.json','utf8'));
+let documents = JSON.parse(fs.readFileSync('./b1.json','utf8'));
 let movieData = JSON.parse(fs.readFileSync('./output.json','utf8'));
 let movie;
 
