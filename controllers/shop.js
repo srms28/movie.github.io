@@ -32,7 +32,7 @@ let movie;
 // ];
 
 exports.getProducts = (req, res, next) => {
-  recommender.train(documents);
+  
   Product.find()
     .then(products => {
       console.log(products);
@@ -96,7 +96,7 @@ exports.getMovie=(req,res,next)=>{
   console.log(prodId);
   // console.log(documents);
   // let s="";
-  
+  recommender.train(documents);
 
 
     
