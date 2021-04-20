@@ -60,6 +60,15 @@
                 <% } else { %>
                     <h1>No Products Found!</h1>
                     <% } %>
+               <% if (similarDocuments.length > 0) { %>
+                
+                    <% for (let product1 of similarDocuments) { %>
+                      <p style="text-align: left;"><%= product1.id %><%= product1.score %></p>
+                    <% } %>
+                
+                <% } else { %>
+                    <h1>No Products Found!</h1>
+                    <% } %>
                     
         </main>
         
