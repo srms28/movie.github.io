@@ -62,8 +62,8 @@
                     <% } %>
                <% if (similarDocuments.length > 0) { %>
                 
-                    <% for (let product1 of similarDocuments) { %>
-                      <p style="text-align: left;"><%= product1.id %><%= product1.score %></p>
+                    <% for (var i = 0; i < lists.length; i++) {%>
+                      <p style="text-align: left;"><%= similarDocuments[i].id %><%= similarDocuments[i].score %></p>
                     <% } %>
                 
                 <% } else { %>
